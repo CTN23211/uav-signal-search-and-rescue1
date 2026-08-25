@@ -1,0 +1,10 @@
+<library path="lib/libdk_search_control_panel">
+  <class
+    name="dk_search_rviz_panel/SearchControlPanel"
+    type="dk_search_rviz_panel::SearchControlPanel"
+    base_class_type="rviz::Panel">
+    <description>
+      Left-side RViz control panel for setting search task, refreshing main/backup routes, and selecting backup routes.
+    </description>
+  </class>
+</library>

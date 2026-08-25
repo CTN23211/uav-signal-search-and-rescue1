@@ -1,0 +1,27 @@
+# Example deployment configuration only.
+# IP addresses, interface names, serial ports and TCP ports are field-specific.
+
+dk2500_ip: "10.42.0.1"
+jetson_ip: "10.42.0.87"
+
+# UAV -> ground station
+cloud_port: 9000
+lora_port: 9001
+odom_port: 9002
+d435_rgb_port: 9200
+
+# Ground station -> UAV mission supervisor
+mission_route_port: 9100
+
+# ROS topics
+cloud_topic_uav: "/cloud_registered"
+odom_topic_uav: "/mavros/local_position/odom"
+cloud_topic_ground: "/cloud_from_jetson"
+lora_topic_ground: "/lora_from_jetson"
+odom_topic_ground: "/odom_from_jetson"
+d435_topic_uav: "/camera/color/image_raw"
+d435_topic_ground: "/d435/rgb_from_jetson"
+
+# Serial device example; discover the actual field device before launch.
+lora_serial_port: "/dev/ttyACM0"
+lora_serial_baud: 115200

@@ -1,0 +1,70 @@
+# ROS / catkin build products
+build/
+devel/
+install/
+logs/
+log/
+.catkin_tools/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+
+# ROS data and maps
+*.bag
+*.bag.active
+*.pcd
+*.ply
+
+# ML/TensorRT binaries
+*.pt
+*.pth
+*.onnx
+*.engine
+*.trt
+
+# Archives and generated artifacts
+*.zip
+*.7z
+*.tar
+*.tar.gz
+*.log
+output/
+animal_runs/
+runs/
+
+# IDE / notebook cache
+.vscode/
+.idea/
+.ipynb_checkpoints/
+
+# Local machine configuration
+.env
+.env.*
+config/local.yaml
+config/local.yml
+**/local.yaml
+**/local.yml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# V3 deployment/runtime artifacts
+*.bag
+*.bag.active
+*.pcd
+*.ply
+*.pt
+*.onnx
+*.engine
+*.bin
+*.log
+*.avi
+*.mp4
+*.mov
+__pycache__/
+*.pyc
+.DS_Store

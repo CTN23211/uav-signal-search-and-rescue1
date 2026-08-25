@@ -1,0 +1,278 @@
+<launch>
+  <!--
+    Manual startup RF calibration with RViz point indicator.
+
+    Modified version:
+      1. Do NOT automatically send startup calibration route to UAV.
+      2. Enable TCP route / mission command sender to Jetson Mission Supervisor.
+      3. DK2500 sends route / mission command to Jetson:9200.
+      4. Auto publish /startup_rf_calib_start once after delay_sec.
+      5. Each calibration point turns green in RViz after staying long enough.
+      6. All points green -> RViz shows ALL CALIB POINTS READY.
+  -->
+
+  <!-- Which script to run -->
+  <arg name="node_type" default="uav_3d_search_fusion_initial_center_yaw_locked_lora5_ready.py"/>
+
+  <!-- Auto start delay -->
+  <arg name="delay_sec" default="20"/>
+
+  <!-- Basic topics -->
+  <arg name="cloud_topic" default="/cloud_from_jetson"/>
+  <arg name="lora_topic" default="/lora_from_jetson"/>
+  <arg name="odom_topic" default="/odom_from_jetson"/>
+  <arg name="frame_id" default="map"/>
+
+  <!-- Map -->
+  <arg name="map_size" default="200.0"/>
+  <arg name="resolution" default="0.5"/>
+  <arg name="origin_x" default="-100.0"/>
+  <arg name="origin_y" default="-100.0"/>
+
+  <!-- Indoor / hand-carried safe parameters -->
+  <arg name="search_z_min" default="0.8"/>
+  <arg name="search_z_max" default="1.3"/>
+  <arg name="candidate_step_xy" default="0.8"/>
+  <arg name="candidate_step_z" default="0.25"/>
+
+  <!-- Point cloud processing -->
+  <arg name="recent_target_points" default="25000"/>
+  <arg name="recent_max_window_sec" default="60.0"/>
+  <arg name="recent_voxel_size" default="0.03"/>
+  <arg name="max_recent_points" default="35000"/>
+  <arg name="max_obstacle_points" default="35000"/>
+  <arg name="max_input_points_per_frame" default="60000"/>
+  <arg name="max_free_ray_points" default="6000"/>
+  <arg name="cloud_process_interval" default="0.20"/>
+
+  <!-- LoRa / RF -->
+  <arg name="min_snr" default="0.0"/>
+  <arg name="target_prefix" default="HELP"/>
+  <arg name="rf_decay" default="0.98"/>
+  <arg name="rf_gain" default="0.10"/>
+  <arg name="lora_virtual_attenuation_db" default="0.0"/>
+  <arg name="lora_rssi_score_min" default="-105.0"/>
+  <arg name="lora_rssi_score_max" default="-65.0"/>
+  <arg name="lora_snr_score_max" default="12.0"/>
+
+  <!-- Startup RF calibration -->
+  <arg name="enable_startup_rf_calibration" default="true"/>
+  <arg name="startup_calib_auto_select_center" default="false"/>
+
+  <!-- Lock center to initial odom and cross axis to initial yaw at /startup_rf_calib_start -->
+  <arg name="startup_calib_center_lock_to_initial_odom" default="true"/>
+  <arg name="startup_calib_axis_lock_to_initial_yaw" default="true"/>
+  <arg name="startup_calib_center_use_initial_odom_z" default="true"/>
+
+  <!-- Calibration center selection -->
+  <arg name="startup_calib_search_radius" default="2.5"/>
+  <arg name="startup_calib_candidate_step" default="0.5"/>
+  <arg name="startup_calib_open_radius" default="2.0"/>
+  <arg name="startup_calib_min_clearance" default="0.6"/>
+
+  <!-- Calibration pattern -->
+  <arg name="startup_calib_pattern" default="centered_cross"/>
+  <arg name="startup_calib_probe_radius" default="2.0"/>
+
+  <!--
+    For 40s calibration, false is recommended:
+    route points become P0, F, B, L, R.
+    If true, route points become P0, F, C1, B, C2, L, C3, R, CEND,
+    and 40s may be too short if each point requires 5s.
+  -->
+  <arg name="startup_calib_return_center_between_probes" default="false"/>
+  <arg name="startup_calib_include_diagonal_cross" default="false"/>
+
+  <!-- Calibration timing -->
+  <arg name="startup_calib_z" default="1.0"/>
+  <arg name="startup_calib_hold_sec" default="5.0"/>
+  <arg name="startup_calib_expected_duration_sec" default="60.0"/>
+  <arg name="startup_calib_min_duration_sec" default="50.0"/>
+  <arg name="startup_calib_min_samples" default="10"/>
+  <arg name="startup_calib_min_spread" default="1.0"/>
+  <arg name="startup_calib_conf_threshold" default="0.05"/>
+
+  <!-- INIT RF appears only after these five points each have enough LoRa samples -->
+  <arg name="startup_calib_required_lora_labels" default="P0,F,B,L,R"/>
+  <arg name="startup_calib_min_lora_per_point" default="2"/>
+  <arg name="startup_calib_require_lora_per_point_for_init" default="true"/>
+  <arg name="startup_calib_require_lora_per_point_to_finish" default="true"/>
+  <arg name="startup_calib_sample_assignment_radius" default="0.9"/>
+
+  <!-- Do not finish early before 40s -->
+  <arg name="startup_calib_auto_finish_on_conf" default="false"/>
+
+  <!-- Important safety settings -->
+  <arg name="startup_calib_send_route_on_start" default="false"/>
+  <arg name="startup_calib_clear_rf_on_start" default="true"/>
+  <arg name="startup_calib_auto_refresh_main" default="true"/>
+  <arg name="startup_calib_auto_refresh_backup" default="true"/>
+  <arg name="startup_calib_use_as_initial_rf_prior" default="true"/>
+  <arg name="startup_calib_prior_hold_sec" default="180.0"/>
+
+  <!-- Calibration point indicator -->
+  <arg name="startup_calib_indicator_enable" default="true"/>
+  <arg name="startup_calib_indicator_topic" default="/startup_rf_calib_indicator"/>
+
+  <!-- Each point turns green after staying inside radius for required_sec -->
+  <arg name="startup_calib_indicator_required_sec" default="5.0"/>
+  <arg name="startup_calib_indicator_radius" default="0.7"/>
+
+  <!-- For hand-carried calibration, only check x/y by default -->
+  <arg name="startup_calib_indicator_check_z" default="false"/>
+  <arg name="startup_calib_indicator_z_tolerance" default="0.8"/>
+
+  <!-- If true, calibration will not complete until all points are green -->
+  <arg name="startup_calib_require_all_points_ready_to_finish" default="true"/>
+
+  <!-- DK2500 -> Jetson Mission Supervisor TCP sender -->
+  <!-- Jetson should run uav_mission_supervisor.py with _enable_tcp_server:=true _tcp_port:=9200 -->
+  <arg name="enable_tcp_route_sender" default="true"/>
+  <arg name="jetson_mission_ip" default="10.42.0.87"/>
+  <arg name="jetson_mission_port" default="9200"/>
+
+  <!-- Route / command send topics -->
+  <arg name="route_send_trigger_topic" default="/send_route_to_uav"/>
+  <arg name="route_send_mission_cmd_topic" default="/dk_tcp_mission_cmd"/>
+  <arg name="route_send_status_topic" default="/dk_tcp_sender_status"/>
+
+  <!-- Route sending behavior -->
+  <arg name="route_send_route_type" default="MAIN_ROUTE"/>
+  <arg name="route_send_frame_id" default="map"/>
+  <arg name="route_send_hold_sec" default="2.0"/>
+  <arg name="route_send_max_goals" default="30"/>
+  <arg name="route_send_force_z" default="false"/>
+  <arg name="route_send_default_z" default="2.0"/>
+  <arg name="route_send_min_valid_z" default="0.2"/>
+  <arg name="route_send_max_valid_z" default="5.0"/>
+  <arg name="route_send_include_entry" default="false"/>
+  <arg name="route_send_connect_timeout" default="2.0"/>
+  <arg name="route_send_send_timeout" default="2.0"/>
+
+  <node pkg="dk_map_builder"
+        type="$(arg node_type)"
+        name="uav_3d_search_fusion_node"
+        output="screen"
+        respawn="false">
+
+    <!-- Basic topics -->
+    <param name="cloud_topic" value="$(arg cloud_topic)"/>
+    <param name="lora_topic" value="$(arg lora_topic)"/>
+    <param name="odom_topic" value="$(arg odom_topic)"/>
+    <param name="frame_id" value="$(arg frame_id)"/>
+
+    <!-- Map -->
+    <param name="map_size" value="$(arg map_size)"/>
+    <param name="resolution" value="$(arg resolution)"/>
+    <param name="origin_x" value="$(arg origin_x)"/>
+    <param name="origin_y" value="$(arg origin_y)"/>
+
+    <!-- Search height -->
+    <param name="search_z_min" value="$(arg search_z_min)"/>
+    <param name="search_z_max" value="$(arg search_z_max)"/>
+    <param name="candidate_step_xy" value="$(arg candidate_step_xy)"/>
+    <param name="candidate_step_z" value="$(arg candidate_step_z)"/>
+
+    <!-- Point cloud processing -->
+    <param name="recent_adaptive_accumulation" value="true"/>
+    <param name="recent_target_points" value="$(arg recent_target_points)"/>
+    <param name="recent_max_window_sec" value="$(arg recent_max_window_sec)"/>
+    <param name="recent_voxel_size" value="$(arg recent_voxel_size)"/>
+    <param name="max_recent_points" value="$(arg max_recent_points)"/>
+    <param name="max_obstacle_points" value="$(arg max_obstacle_points)"/>
+    <param name="max_input_points_per_frame" value="$(arg max_input_points_per_frame)"/>
+    <param name="max_free_ray_points" value="$(arg max_free_ray_points)"/>
+    <param name="cloud_process_interval" value="$(arg cloud_process_interval)"/>
+
+    <!-- LoRa / RF -->
+    <param name="min_snr" value="$(arg min_snr)"/>
+    <param name="target_prefix" value="$(arg target_prefix)"/>
+    <param name="rf_decay" value="$(arg rf_decay)"/>
+    <param name="rf_gain" value="$(arg rf_gain)"/>
+    <param name="lora_virtual_attenuation_db" value="$(arg lora_virtual_attenuation_db)"/>
+    <param name="lora_rssi_score_min" value="$(arg lora_rssi_score_min)"/>
+    <param name="lora_rssi_score_max" value="$(arg lora_rssi_score_max)"/>
+    <param name="lora_snr_score_max" value="$(arg lora_snr_score_max)"/>
+
+    <!-- Startup RF calibration -->
+    <param name="enable_startup_rf_calibration" value="$(arg enable_startup_rf_calibration)"/>
+    <param name="startup_calib_auto_select_center" value="$(arg startup_calib_auto_select_center)"/>
+    <param name="startup_calib_center_lock_to_initial_odom" value="$(arg startup_calib_center_lock_to_initial_odom)"/>
+    <param name="startup_calib_axis_lock_to_initial_yaw" value="$(arg startup_calib_axis_lock_to_initial_yaw)"/>
+    <param name="startup_calib_center_use_initial_odom_z" value="$(arg startup_calib_center_use_initial_odom_z)"/>
+
+    <!-- Calibration center selection -->
+    <param name="startup_calib_search_radius" value="$(arg startup_calib_search_radius)"/>
+    <param name="startup_calib_candidate_step" value="$(arg startup_calib_candidate_step)"/>
+    <param name="startup_calib_open_radius" value="$(arg startup_calib_open_radius)"/>
+    <param name="startup_calib_min_clearance" value="$(arg startup_calib_min_clearance)"/>
+
+    <!-- Calibration pattern -->
+    <param name="startup_calib_pattern" value="$(arg startup_calib_pattern)"/>
+    <param name="startup_calib_probe_radius" value="$(arg startup_calib_probe_radius)"/>
+    <param name="startup_calib_return_center_between_probes" value="$(arg startup_calib_return_center_between_probes)"/>
+    <param name="startup_calib_include_diagonal_cross" value="$(arg startup_calib_include_diagonal_cross)"/>
+
+    <!-- Calibration timing -->
+    <param name="startup_calib_z" value="$(arg startup_calib_z)"/>
+    <param name="startup_calib_hold_sec" value="$(arg startup_calib_hold_sec)"/>
+    <param name="startup_calib_expected_duration_sec" value="$(arg startup_calib_expected_duration_sec)"/>
+    <param name="startup_calib_min_duration_sec" value="$(arg startup_calib_min_duration_sec)"/>
+    <param name="startup_calib_min_samples" value="$(arg startup_calib_min_samples)"/>
+    <param name="startup_calib_min_spread" value="$(arg startup_calib_min_spread)"/>
+    <param name="startup_calib_conf_threshold" value="$(arg startup_calib_conf_threshold)"/>
+    <param name="startup_calib_required_lora_labels" value="$(arg startup_calib_required_lora_labels)"/>
+    <param name="startup_calib_min_lora_per_point" value="$(arg startup_calib_min_lora_per_point)"/>
+    <param name="startup_calib_require_lora_per_point_for_init" value="$(arg startup_calib_require_lora_per_point_for_init)"/>
+    <param name="startup_calib_require_lora_per_point_to_finish" value="$(arg startup_calib_require_lora_per_point_to_finish)"/>
+    <param name="startup_calib_sample_assignment_radius" value="$(arg startup_calib_sample_assignment_radius)"/>
+    <param name="startup_calib_auto_finish_on_conf" value="$(arg startup_calib_auto_finish_on_conf)"/>
+
+    <!-- Calibration behavior -->
+    <param name="startup_calib_send_route_on_start" value="$(arg startup_calib_send_route_on_start)"/>
+    <param name="startup_calib_clear_rf_on_start" value="$(arg startup_calib_clear_rf_on_start)"/>
+    <param name="startup_calib_auto_refresh_main" value="$(arg startup_calib_auto_refresh_main)"/>
+    <param name="startup_calib_auto_refresh_backup" value="$(arg startup_calib_auto_refresh_backup)"/>
+    <param name="startup_calib_use_as_initial_rf_prior" value="$(arg startup_calib_use_as_initial_rf_prior)"/>
+    <param name="startup_calib_prior_hold_sec" value="$(arg startup_calib_prior_hold_sec)"/>
+
+    <!-- Calibration point indicator -->
+    <param name="startup_calib_indicator_enable" value="$(arg startup_calib_indicator_enable)"/>
+    <param name="startup_calib_indicator_topic" value="$(arg startup_calib_indicator_topic)"/>
+    <param name="startup_calib_indicator_required_sec" value="$(arg startup_calib_indicator_required_sec)"/>
+    <param name="startup_calib_indicator_radius" value="$(arg startup_calib_indicator_radius)"/>
+    <param name="startup_calib_indicator_check_z" value="$(arg startup_calib_indicator_check_z)"/>
+    <param name="startup_calib_indicator_z_tolerance" value="$(arg startup_calib_indicator_z_tolerance)"/>
+    <param name="startup_calib_require_all_points_ready_to_finish" value="$(arg startup_calib_require_all_points_ready_to_finish)"/>
+
+    <!-- DK2500 -> Jetson Mission Supervisor TCP route / command sender -->
+    <param name="enable_tcp_route_sender" value="$(arg enable_tcp_route_sender)"/>
+    <param name="jetson_mission_ip" value="$(arg jetson_mission_ip)"/>
+    <param name="jetson_mission_port" value="$(arg jetson_mission_port)"/>
+
+    <param name="route_send_trigger_topic" value="$(arg route_send_trigger_topic)"/>
+    <param name="route_send_mission_cmd_topic" value="$(arg route_send_mission_cmd_topic)"/>
+    <param name="route_send_status_topic" value="$(arg route_send_status_topic)"/>
+
+    <param name="route_send_route_type" value="$(arg route_send_route_type)"/>
+    <param name="route_send_frame_id" value="$(arg route_send_frame_id)"/>
+    <param name="route_send_hold_sec" value="$(arg route_send_hold_sec)"/>
+    <param name="route_send_max_goals" value="$(arg route_send_max_goals)"/>
+    <param name="route_send_force_z" value="$(arg route_send_force_z)"/>
+    <param name="route_send_default_z" value="$(arg route_send_default_z)"/>
+    <param name="route_send_min_valid_z" value="$(arg route_send_min_valid_z)"/>
+    <param name="route_send_max_valid_z" value="$(arg route_send_max_valid_z)"/>
+    <param name="route_send_include_entry" value="$(arg route_send_include_entry)"/>
+    <param name="route_send_connect_timeout" value="$(arg route_send_connect_timeout)"/>
+    <param name="route_send_send_timeout" value="$(arg route_send_send_timeout)"/>
+
+  </node>
+
+  <!-- Auto publish calibration start once after delay_sec seconds -->
+  <node pkg="rostopic"
+        type="rostopic"
+        name="auto_startup_rf_calib_once"
+        output="screen"
+        launch-prefix="bash -c 'sleep $(arg delay_sec); exec &quot;$0&quot; &quot;$@&quot;'"
+        args='pub -1 /startup_rf_calib_start std_msgs/Bool "data: true"'/>
+</launch>

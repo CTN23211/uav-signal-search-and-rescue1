@@ -1,0 +1,302 @@
+{
+  "release": "V3",
+  "repository_root": "autonomous-uav-ugv-cooperative-system",
+  "file_count_excluding_manifest": 59,
+  "files": [
+    {
+      "path": ".gitattributes",
+      "size_bytes": 85,
+      "sha256": "c6f2fd7935d77a45a8d7e355625a3dafe37d19594adb066b6c9e7e3ac0199954"
+    },
+    {
+      "path": ".gitignore",
+      "size_bytes": 674,
+      "sha256": "5662f46164d93c04189172673e3446cac78beeb7f8b8f4e755232874dcabe962"
+    },
+    {
+      "path": "NOTICE.md",
+      "size_bytes": 615,
+      "sha256": "416330a65e73ad78f7a6fea76a1b615775b1c5609b2d4ecb5cf9d36db70f681d"
+    },
+    {
+      "path": "README.md",
+      "size_bytes": 6323,
+      "sha256": "ab53d253adf925c250aba7dac11a50f38ff2aadd4635c9c3dc4321950162fb74"
+    },
+    {
+      "path": "README_zh-CN.md",
+      "size_bytes": 4864,
+      "sha256": "7c5b1a23245ca04203cce8bd6e38a6cdef86818554e1d15105d4026abb3a35a8"
+    },
+    {
+      "path": "archive/README.md",
+      "size_bytes": 406,
+      "sha256": "52933b68c31aded212db46c0b4d52093a6c77f990b7c21f8e2cb1dcdd3a7ef98"
+    },
+    {
+      "path": "archive/experimental/raw_livox_to_pcl2_sender_single_socket.py",
+      "size_bytes": 12003,
+      "sha256": "7508f8edd4cb04788b19e4725c7dd948589b162562701c4c7639de66d6918c27"
+    },
+    {
+      "path": "config/network.example.yaml",
+      "size_bytes": 765,
+      "sha256": "e3e9c96d06866d0de8c1a8bf77351d777f2f2ee92b98cc9fdd9b434cf961c81a"
+    },
+    {
+      "path": "docs/COMMUNICATION_PROTOCOL.md",
+      "size_bytes": 2494,
+      "sha256": "e062d8a8d91ceac76dab9f34f33061ea431654c97a524d13999ed0c8073ba760"
+    },
+    {
+      "path": "docs/CORE_FILE_LIST.md",
+      "size_bytes": 2672,
+      "sha256": "fd2a300dbd1bfd32a7a30ab334107965b9d118c2a727474c0ee262b4f594ad17"
+    },
+    {
+      "path": "docs/DEMO.md",
+      "size_bytes": 698,
+      "sha256": "cf6317ba9b839901234d7ad0603894204d9b0f5c51777254399ed155eb97869d"
+    },
+    {
+      "path": "docs/DEPENDENCIES.md",
+      "size_bytes": 971,
+      "sha256": "43a3b2988ae8e2ec69748d2a7adfe435554b243fb73654204eda2af2cd67243f"
+    },
+    {
+      "path": "docs/EGO_PLANNER_MODIFICATIONS.md",
+      "size_bytes": 4402,
+      "sha256": "d6a56d5af3bf3b1a9d60ce50284e05c18129bca8ae3053d159407ead06e912b7"
+    },
+    {
+      "path": "docs/PLANNER_VERSION_HISTORY.md",
+      "size_bytes": 1249,
+      "sha256": "f070c81362205825281bcebe7c3cf078b331733c68577788c153889041d3d4a1"
+    },
+    {
+      "path": "docs/PROJECT_CONTRIBUTIONS.md",
+      "size_bytes": 1687,
+      "sha256": "e38e4772762d086cb1572672e4a3979a0d049ae782b3688f2aac542902fb47ca"
+    },
+    {
+      "path": "docs/PUBLIC_RELEASE_NOTES.md",
+      "size_bytes": 748,
+      "sha256": "68f443eba8db507ce06e9deae4a2242f20a47894c8778d139d5dd11270b4b29b"
+    },
+    {
+      "path": "docs/QC_REPORT.md",
+      "size_bytes": 1074,
+      "sha256": "23305b68772bc1a8d00b9dcc410799b434ae02132a66c10cb1aa586cdbec409d"
+    },
+    {
+      "path": "docs/README.md",
+      "size_bytes": 1074,
+      "sha256": "4cfd9381a5cb008514845bbad73bbfd36fdb7f77c39c23e2e72776eddac6c191"
+    },
+    {
+      "path": "docs/ROS_INTERFACES.md",
+      "size_bytes": 1639,
+      "sha256": "0b0e90961f77952d19075a2e98243adb79295d83e6c4686fb74928e58a96fe54"
+    },
+    {
+      "path": "docs/RUN_GUIDE.md",
+      "size_bytes": 2759,
+      "sha256": "cc9423be006d624e2b979b8019f61df95400e430cadc43469159f3901216ac4c"
+    },
+    {
+      "path": "docs/SYSTEM_ARCHITECTURE.md",
+      "size_bytes": 2495,
+      "sha256": "2a4e3b46751b689fe9bf8ad063dc507bd0ce0a10fa83cce4ee748313aa309b7d"
+    },
+    {
+      "path": "docs/UPDATE_GITHUB_V3.md",
+      "size_bytes": 1092,
+      "sha256": "0eeb25b5842413dbf3377e90b056faa4eb3941d8d387566db54a3481ae773ab0"
+    },
+    {
+      "path": "docs/V3_RELEASE_NOTES.md",
+      "size_bytes": 1194,
+      "sha256": "bbaf8dbf8cba4358b3ed914b8e06cc9d0dfcc1b25581a6e1500bf5d073830602"
+    },
+    {
+      "path": "docs/V3_SOURCE_TRACEABILITY.md",
+      "size_bytes": 1684,
+      "sha256": "b54a35847b97a42d5f34b81c4fe028c18e3ba38f47cc6e72eca52f8f31079f17"
+    },
+    {
+      "path": "ground_station/README.md",
+      "size_bytes": 606,
+      "sha256": "6d29f31912859a16d21273c3b7d244fd6137320d3fc078baa719245b4f7ae4c7"
+    },
+    {
+      "path": "ground_station/nodes/d435_rgb_tcp_receiver.py",
+      "size_bytes": 3873,
+      "sha256": "396a5877dd0f018514e97f6f24479086fa6f9c23d9c4a4b026d3b1699ac9911d"
+    },
+    {
+      "path": "ground_station/nodes/dk2500_cloud_lora_odom_receiver.py",
+      "size_bytes": 13827,
+      "sha256": "bb139562ea511c510bb668aae02d3c5fd6757b5650fdaa8da3a792e27f2cea1d"
+    },
+    {
+      "path": "ground_station/nodes/openvino_yolo_person_detector.py",
+      "size_bytes": 14466,
+      "sha256": "0ca4610c900a687add1ea1cb0296b8e94b65c2a7d7f1f10cbda5d118b1752fcd"
+    },
+    {
+      "path": "ground_station/ros_ws/src/dk_map_builder/CMakeLists.txt",
+      "size_bytes": 320,
+      "sha256": "cde351411572cb06cad12c9d578475a83a694641f483e8865c80fec15f040412"
+    },
+    {
+      "path": "ground_station/ros_ws/src/dk_map_builder/launch/uav_3d_search_fusion_manual_calib_indicator.launch",
+      "size_bytes": 15031,
+      "sha256": "42eaf0ca7600914f7159800432de88798f29b9423383c2d385b8553e64c75ce0"
+    },
+    {
+      "path": "ground_station/ros_ws/src/dk_map_builder/package.xml",
+      "size_bytes": 580,
+      "sha256": "36260e63888212f98dc9da7249064c33d507775d10dd1f856bae053ae2c89ea4"
+    },
+    {
+      "path": "ground_station/ros_ws/src/dk_map_builder/scripts/uav_3d_search_fusion.py",
+      "size_bytes": 343986,
+      "sha256": "3c2d89af7cf30932b66cb53650e12b55fc0f701d8aa9106c7ebfdc1032f527dd"
+    },
+    {
+      "path": "ground_station/ros_ws/src/dk_search_rviz_panel/CMakeLists.txt",
+      "size_bytes": 1167,
+      "sha256": "dc57590cee9c6119e868323a9ff07f0e2e289f4013abe5b6dd9d9a2588e438ab"
+    },
+    {
+      "path": "ground_station/ros_ws/src/dk_search_rviz_panel/README.md",
+      "size_bytes": 723,
+      "sha256": "1b721b1f105319458cc49a2c6a924ca0b9c17a7c50d615ed335d7ea7ad013658"
+    },
+    {
+      "path": "ground_station/ros_ws/src/dk_search_rviz_panel/include/dk_search_rviz_panel/search_control_panel.h",
+      "size_bytes": 4855,
+      "sha256": "ffccfe4dc5ea28620590ea7229b41bef7da568a9ba5154a27c3109c0b0ac6269"
+    },
+    {
+      "path": "ground_station/ros_ws/src/dk_search_rviz_panel/install_search_panel.sh",
+      "size_bytes": 699,
+      "sha256": "2d89cd81bf215067e9a1a280204b5033b4e157239bcbf9fe055a47b9c9a1e6b4"
+    },
+    {
+      "path": "ground_station/ros_ws/src/dk_search_rviz_panel/launch/search_panel.launch",
+      "size_bytes": 254,
+      "sha256": "fa8bc53584b78f6a623289cdcd360422bd5290a6c46d2d00c880343fd6b39521"
+    },
+    {
+      "path": "ground_station/ros_ws/src/dk_search_rviz_panel/package.xml",
+      "size_bytes": 616,
+      "sha256": "44fad54c7c08a305d35657bb4388205622a947ab109b74b358987b1bf85321ab"
+    },
+    {
+      "path": "ground_station/ros_ws/src/dk_search_rviz_panel/plugin_description.xml",
+      "size_bytes": 374,
+      "sha256": "27dc5f238c60cdbd0ba4b770c1145ca8b47e22fe26c169877e9dead2022ef044"
+    },
+    {
+      "path": "ground_station/ros_ws/src/dk_search_rviz_panel/rviz/search_panel.rviz",
+      "size_bytes": 5915,
+      "sha256": "2ff2c5038d7790590bf73255c06e23199f784d3da75d97103591a0c155661f85"
+    },
+    {
+      "path": "ground_station/ros_ws/src/dk_search_rviz_panel/src/search_control_panel.cpp",
+      "size_bytes": 28548,
+      "sha256": "73f86e194f2780d894a4b304698d8a8234507847321695ea4c895e5f89f560a8"
+    },
+    {
+      "path": "ground_station/scripts/start_ground_station_example.sh",
+      "size_bytes": 399,
+      "sha256": "62d4ac0497d573a9bd99718da07b4666c4be3803f093e534f729718756e0145f"
+    },
+    {
+      "path": "models/README.md",
+      "size_bytes": 464,
+      "sha256": "3f93ba9bf66d16695a5621920991920c113e22f624398865b1c37fb7d3694ef4"
+    },
+    {
+      "path": "third_party/README.md",
+      "size_bytes": 613,
+      "sha256": "8479e90feabb3af6a110c26395bd71b5818884fa4d414dbd2e91b58776c27052"
+    },
+    {
+      "path": "third_party/fast-drone-250-modifications/README.md",
+      "size_bytes": 786,
+      "sha256": "419bc132d7999e9fa2d75bf3524ded8ee04d11a98e6c1a83fcc49e4afa585b53"
+    },
+    {
+      "path": "third_party/fast-drone-250-modifications/overlay/src/planner/plan_manage/launch/advanced_param_exp.xml",
+      "size_bytes": 9951,
+      "sha256": "1160dcc2d741ba1705059eaf7c88ae873a193aee0b0258b1fafa3be871ab0d0e"
+    },
+    {
+      "path": "third_party/fast-drone-250-modifications/overlay/src/planner/plan_manage/launch/default.rviz",
+      "size_bytes": 13687,
+      "sha256": "81e63590fe4f5382215d1a049a341e307241986bf0d099d83402a4d979170738"
+    },
+    {
+      "path": "third_party/fast-drone-250-modifications/overlay/src/planner/plan_manage/launch/single_run_in_exp.launch",
+      "size_bytes": 3323,
+      "sha256": "d9b3e505c89576eaa75fa69caa0c1e11706d611c101a7db392d88ac5df65682c"
+    },
+    {
+      "path": "third_party/fast-drone-250-modifications/overlay/src/planner/plan_manage/launch/single_run_in_fox.launch",
+      "size_bytes": 3942,
+      "sha256": "dfe635bf4e78ba46c61971d11c8277e471fc71a5b89a92b6249048d2420d1c04"
+    },
+    {
+      "path": "third_party/fast-drone-250-modifications/overlay/src/planner/plan_manage/launch/single_run_in_vision.launch",
+      "size_bytes": 3394,
+      "sha256": "03f19efe496947a11d09a92eb615a27a7f5a6a35c397cb84f51a47b72a9d0cdb"
+    },
+    {
+      "path": "third_party/fast-drone-250-modifications/overlay/src/planner/plan_manage/src/ego_replan_fsm.cpp",
+      "size_bytes": 42953,
+      "sha256": "c8e7576198d303ffa8ac099fb4754dc0f25b8b18b368fce438bd07d0c77c1c29"
+    },
+    {
+      "path": "third_party/fast-drone-250-modifications/overlay/src/planner/plan_manage/src/planner_manager.cpp",
+      "size_bytes": 36278,
+      "sha256": "dc2cfa6c6bd25afc3421bce15c78f335bbd493d7ad31095a54da37f455e87af1"
+    },
+    {
+      "path": "uav/README.md",
+      "size_bytes": 615,
+      "sha256": "7b9bb1192b0339e134749d2649b519288e7df5728641cad0b14a4cde80f53411"
+    },
+    {
+      "path": "uav/nodes/d435_rgb_tcp_sender.py",
+      "size_bytes": 5491,
+      "sha256": "f47be1315e0128b04bb742e209fd56df09484036dca53e34c382ce665eb0fed4"
+    },
+    {
+      "path": "uav/nodes/jetson_cloud_lora_odom_sender.py",
+      "size_bytes": 10375,
+      "sha256": "0f239555207fbe1d22fbdcace0ec5268c5ed4f44b8c6f87507d9421c3d95041c"
+    },
+    {
+      "path": "uav/nodes/uav_mission_supervisor.py",
+      "size_bytes": 48014,
+      "sha256": "5e237fcae811c4de8848b844e1af67d11fcfcf9203ced5040756d0404bbc1e56"
+    },
+    {
+      "path": "uav/ros_ws/src/fox_controller/CMakeLists.txt",
+      "size_bytes": 566,
+      "sha256": "2ffa4259824230560345e277bc220a9656e7e3d00720e8b0088ca5ace9b2ce27"
+    },
+    {
+      "path": "uav/ros_ws/src/fox_controller/package.xml",
+      "size_bytes": 827,
+      "sha256": "59abf2c26964186176096bba6cab2217b889f4a7cfb039e55fc07f653e8a3bdd"
+    },
+    {
+      "path": "uav/ros_ws/src/fox_controller/src/fox_controller.cpp",
+      "size_bytes": 51817,
+      "sha256": "2c5dfea0914a3052deddc36b0a0d107c6319394c4eda72392d94830ffa699bf2"
+    }
+  ]
+}

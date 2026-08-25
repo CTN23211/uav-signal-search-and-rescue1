@@ -1,0 +1,8 @@
+<launch>
+  <!-- Start RViz with the left-side UAV Search Control panel. -->
+  <node name="rviz_search_panel"
+        pkg="rviz"
+        type="rviz"
+        args="-d $(find dk_search_rviz_panel)/rviz/search_panel.rviz"
+        output="screen"/>
+</launch>
