@@ -20,7 +20,6 @@ A ROS1/PX4-based **autonomous UAV search-and-rescue system** for low-altitude di
 - **Multi-source perception:** Livox Mid-360 + FAST-LIO for mapping/localization, D435 for RGB visual confirmation.
 - **Ground-station intelligence:** DK2500 performs high-level search fusion, route generation, and operator interaction.
 - **Autonomous flight execution:** Jetson mission supervisor bridges DK2500 routes to modified EGO-Planner and PX4/MAVROS.
-- **Real-flight validated:** The repository includes **indoor** and **outdoor** real-flight demos for direct review.
 
 ---
 
@@ -191,4 +190,3 @@ uav-signal-search-and-rescue/
 
 ## Acknowledgement
 
-This repository organizes the core code and demonstration assets of the **Zhixun UAV signal-guided search project** for research, competition showcase, and technical review.
