@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>UAV Signal-Guided Search and Rescue System</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f6f8fa;
+      color: #1f2328;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 40px 24px 70px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 42px;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #57606a;
+      font-size: 18px;
+      max-width: 850px;
+      margin: 0 auto 38px;
+      line-height: 1.6;
+    }
+
+    h2 {
+      margin-top: 55px;
+      margin-bottom: 25px;
+      font-size: 30px;
+    }
+
+    .hero {
+      display: block;
+      max-width: 760px;
+      width: 100%;
+      margin: 0 auto;
+      border-radius: 12px;
+    }
+
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 3px 16px rgba(0,0,0,0.08);
+    }
+
+    video {
+      width: 100%;
+      border-radius: 10px;
+      background: black;
+    }
+
+    .card h3 {
+      margin: 16px 4px 8px;
+      font-size: 21px;
+    }
+
+    .card p {
+      color: #57606a;
+      margin: 0 4px 8px;
+      line-height: 1.5;
+    }
+
+    .architecture {
+      width: 100%;
+      background: white;
+      border-radius: 12px;
+    }
+
+    .github-button {
+      display: inline-block;
+      text-decoration: none;
+      background: #24292f;
+      color: white;
+      padding: 12px 22px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .center {
+      text-align: center;
+      margin-top: 45px;
+    }
+
+    @media (max-width: 800px) {
+      .demo-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>UAV Signal-Guided Search and Rescue System</h1>
+
+  <p class="subtitle">
+    A ROS-based autonomous UAV search-and-rescue system integrating
+    wireless distress-signal fusion, LiDAR mapping, visual target
+    verification, and autonomous flight planning.
+  </p>
+
+  <img
+    class="hero"
+    src="assets/images/uav_platform.jpg"
+    alt="UAV Platform"
+  >
+
+
+  <h2>Real-Flight Demonstrations</h2>
+
+  <div class="demo-grid">
+
+    <div class="card">
+
+      <video
+        controls
+        playsinline
+        preload="metadata"
+        poster="assets/demo/indoor_demo_thumbnail.jpg"
+      >
+        <source
+          src="assets/demo/demo_indoor_end_to_end.mp4"
+          type="video/mp4"
+        >
+        Your browser does not support HTML5 video.
+      </video>
+
+      <h3>Indoor End-to-End Autonomous Search</h3>
+
+      <p>
+        LiDAR mapping, visual verification and autonomous mission execution.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <video
+        controls
+        playsinline
+        preload="metadata"
+        poster="assets/demo/outdoor_demo_thumbnail.jpg"
+      >
+        <source
+          src="assets/demo/demo_outdoor_field_test.mp4"
+          type="video/mp4"
+        >
+        Your browser does not support HTML5 video.
+      </video>
+
+      <h3>Outdoor Signal-Guided Field Validation</h3>
+
+      <p>
+        Ground-station visualization and real-flight field validation.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <h2>System Architecture</h2>
+
+  <img
+    class="architecture"
+    src="assets/diagrams/system_architecture.png"
+    alt="System Architecture"
+  >
+
+
+  <div class="center">
+
+    <a
+      class="github-button"
+      href="https://github.com/CTN23211/uav-signal-search-and-rescue1"
+    >
+      View Source Code on GitHub
+    </a>
+
+  </div>
+
+</div>
+
+</body>
+</html>
